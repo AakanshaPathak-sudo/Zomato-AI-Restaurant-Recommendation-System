@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zomato AI — Restaurant recommendations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/ui/style.css" />
+  </head>
+  <body>
+    <header class="hero" role="banner">
+      <div class="hero-inner">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="2" />
+              <path d="M18 12v8M22 10v12M26 10v12M30 12v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+          <h1>Zomato AI</h1>
+        </div>
+        <p class="tagline">AI-Powered Restaurant Recommendations.</p>
+      </div>
+      <svg
+        class="hero-curve"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 80"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          fill="var(--page-bg)"
+          d="M0,40 C240,100 480,0 720,40 C960,80 1200,20 1440,50 L1440,80 L0,80 Z"
+        />
+      </svg>
+    </header>
+
+    <main class="page">
+      <form id="search-form" class="card form-card" novalidate>
+        <div class="field">
+          <label class="field-label" for="city-select">
+            <span class="label-icon label-icon--pin" aria-hidden="true"></span>
+            Select City
+          </label>
+          <div class="select-wrap">
+            <select id="city-select" name="city" required>
+              <option value="Banashankari" selected>Banashankari</option>
+              <option value="Bellandur">Bellandur</option>
+              <option value="BTM Layout">BTM Layout</option>
+              <option value="Basavanagudi">Basavanagudi</option>
+              <option value="Electronic City">Electronic City</option>
+              <option value="Frazer Town">Frazer Town</option>
+              <option value="Hebbal">Hebbal</option>
+              <option value="HSR Layout">HSR Layout</option>
+              <option value="Indiranagar">Indiranagar</option>
+              <option value="Jayanagar">Jayanagar</option>
+              <option value="Koramangala">Koramangala</option>
+              <option value="Malleshwaram">Malleshwaram</option>
+              <option value="Marathahalli">Marathahalli</option>
+              <option value="MG Road">MG Road</option>
+              <option value="Rajajinagar">Rajajinagar</option>
+              <option value="Ulsoor">Ulsoor</option>
+              <option value="Whitefield">Whitefield</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset class="field price-field">
+          <legend class="field-label">
+            <span class="label-icon label-icon--money" aria-hidden="true"></span>
+            Price Range
+          </legend>
+          <div class="price-tiers" role="radiogroup" aria-label="Price range">
+            <label class="price-card">
+              <input type="radio" name="price_tier" value="300" />
+              <span class="price-card-inner">
+                <span class="rupees" aria-hidden="true">₹</span>
+                <span class="price-name">Budget</span>
+                <span class="price-hint">Under ₹300</span>
+              </span>
+            </label>
+            <label class="price-card">
+              <input type="radio" name="price_tier" value="600" checked />
+              <span class="price-card-inner">
+                <span class="rupees" aria-hidden="true">₹₹</span>
+                <span class="price-name">Affordable</span>
+                <span class="price-hint">₹300 – ₹600</span>
+              </span>
+            </label>
+            <label class="price-card">
+              <input type="radio" name="price_tier" value="1200" />
+              <span class="price-card-inner">
+                <span class="rupees" aria-hidden="true">₹₹₹</span>
+                <span class="price-name">Mid-Range</span>
+                <span class="price-hint">₹600 – ₹1200</span>
+              </span>
+            </label>
+            <label class="price-card">
+              <input type="radio" name="price_tier" value="5000" />
+              <span class="price-card-inner">
+                <span class="rupees" aria-hidden="true">₹₹₹₹</span>
+                <span class="price-name">Expensive</span>
+                <span class="price-hint">Above ₹1200</span>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="field slider-field">
+          <div class="slider-head">
+            <label class="field-label" for="top_k">
+              <span class="label-icon label-icon--hash" aria-hidden="true"></span>
+              Number of Recommendations
+            </label>
+            <span class="slider-value" id="top_k_value" aria-live="polite">10</span>
+          </div>
+          <input type="range" id="top_k" name="top_k" min="1" max="50" value="10" />
+        </div>
+
+        <details class="prefs-details">
+          <summary>Preferences <span class="optional-hint">(optional)</span></summary>
+          <label class="sr-only" for="prefs">Preferences</label>
+          <textarea id="prefs" name="preferences" rows="2" placeholder="e.g. vegetarian, outdoor seating"></textarea>
+        </details>
+
+        <button type="submit" id="submit-btn" class="submit-btn">
+          <span class="submit-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2L14 8L20 10L14 12L12 18L10 12L4 10L10 8L12 2Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          Get AI Recommendations
+        </button>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+        <p id="error" class="error" role="alert" hidden></p>
+      </form>
+
+      <section class="card results-card" aria-labelledby="results-title">
+        <h2 id="results-title" class="results-heading">Recommendations</h2>
+        <div id="results" class="results"></div>
+      </section>
+    </main>
+
+    <script src="/ui/app.js" defer></script>
+  </body>
+</html>

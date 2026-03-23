@@ -118,13 +118,14 @@ def _render() -> None:
             f"Cost for two: {item.get('approx_cost_for_two') or '-'} | "
             f"Location: {item.get('location') or '-'}"
         )
-        with st.container(border=True):
+        with st.container():
             st.markdown(f"**{title}**")
             st.caption(subtitle)
             st.caption(f"Cuisines: {item.get('cuisines') or '-'}")
             rationale = item.get("rationale")
             if rationale:
                 st.write(rationale)
+            st.divider()
 
 
 def _hydrate_env_from_streamlit_secrets() -> None:

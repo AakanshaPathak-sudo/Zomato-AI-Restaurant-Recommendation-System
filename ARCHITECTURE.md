@@ -1,6 +1,6 @@
 # Zomato AI Restaurant Recommendation Service — Architecture
 
-This document describes a **phase-wise** architecture for a restaurant recommendation service built on the dataset [ManikaSaini/zomato-restaurant-recommendation](https://huggingface.co/datasets/ManikaSaini/zomato-restaurant-recommendation) (~51k rows; available as Parquet via Hugging Face). Users provide **city** and **price** (budget), and optional **preferences** for LLM reasoning. **Phase 5** is the **CLI**; **Phase 6** adds a **browser frontend** backed by a small HTTP API. Deployment, hosting, and CI/CD are **out of scope**.
+This document describes a **phase-wise** architecture for a restaurant recommendation service built on the dataset [ManikaSaini/zomato-restaurant-recommendation](https://huggingface.co/datasets/ManikaSaini/zomato-restaurant-recommendation) (~51k rows; available as Parquet via Hugging Face). Users provide **city** and **price** (budget), and optional **preferences** for LLM reasoning. **Phase 5** is the **CLI**; **Phase 6** adds a **browser frontend** backed by a small HTTP API; **Phase 7** adds cloud deployment via Streamlit.
 
 ---
 
@@ -18,7 +18,7 @@ This document describes a **phase-wise** architecture for a restaurant recommend
 
 ## High-level system view
 
-After all phases, data flows: **dataset → stored/processed catalog → user filters → Groq LLM ranking → CLI (Phase 5) or web UI + API (Phase 6)**.
+After all phases, data flows: **dataset → stored/processed catalog → user filters → Groq LLM ranking → CLI (Phase 5) or web UI + API (Phase 6) → hosted app (Phase 7)**.
 
 ```mermaid
 flowchart LR
@@ -227,6 +227,22 @@ flowchart LR
 
 ---
 
+## Phase 7 — Deployment (Streamlit Cloud)
+
+**Objective:** Publish the recommendation experience to a shareable cloud URL while reusing the same pipeline logic.
+
+| Concern | Approach |
+|---------|----------|
+| **Entry point** | Use `streamlit_app.py` as the app entrypoint in Streamlit Community Cloud. |
+| **Data bootstrap** | If `data/processed/restaurants.parquet` is missing, build it on first run via the existing Phase 1 ingestion path. |
+| **Secrets** | Store `GROQ_API_KEY` (and optional `GROQ_MODEL`) in Streamlit Secrets, not in source control. |
+| **Config** | Optional runtime env/secrets: `RESTAURANTS_PARQUET`, `BOOTSTRAP_MAX_ROWS`. |
+| **User flow** | Form input (locality, budget, preferences, top-k) calls the same structured pipeline (`run_pipeline_structured`) and renders ranked cards. |
+
+**Deliverable:** A deployed Streamlit app URL backed by the existing recommendation pipeline, with secrets managed in Streamlit Cloud.
+
+---
+
 ## Suggested module layout (reference)
 
 This is a logical layout, not a mandate. Implemented packages use descriptive folder names:
@@ -238,6 +254,7 @@ phase_3_integrate/      # filter by city + price → candidates
 phase_4_recommendation/ # Groq LLM prompts + JSON parse + fallback ranker
 phase_5_display/        # CLI pipeline + formatting
 phase_6_web/            # structured pipeline, FastAPI (api.py), static UI (ui/)
+streamlit_app.py        # Phase 7 deployment entrypoint
 ```
 
 ---
@@ -246,7 +263,7 @@ phase_6_web/            # structured pipeline, FastAPI (api.py), static UI (ui/)
 
 - **Reproducibility:** Pin dataset revision and record preprocessing steps.
 - **Quality:** Spot-check a few cities manually against known names.
-- **Metrics (optional):** If you later add labels or user feedback, you can measure ranking quality; not required for the six phases above.
+- **Metrics (optional):** If you later add labels or user feedback, you can measure ranking quality; not required for the seven phases above.
 
 ---
 
@@ -260,5 +277,6 @@ phase_6_web/            # structured pipeline, FastAPI (api.py), static UI (ui/)
 | **4** | Recommendation | **Groq LLM** returns ranked top-K (+ rationales) from candidates |
 | **5** | Display | **CLI** shows results (`phase_5_display`) |
 | **6** | Web | **Frontend** + **HTTP API**; JSON contract; Groq key server-side only |
+| **7** | Deployment | Streamlit app (`streamlit_app.py`) live with secrets + runtime config |
 
-This completes the architecture for phased development **without** a deployment step (Phase 6 can still be built and run locally).
+This completes the architecture for phased development, including a deployment step in **Phase 7**.

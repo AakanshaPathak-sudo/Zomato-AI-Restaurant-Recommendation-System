@@ -20,6 +20,27 @@ AI-powered restaurant recommendation system that uses user inputs (city, budget,
 
 **If the page still does not load:** read the terminal output. `Address already in use` means another app is on port 8000—use `PORT=8001 python3 -m phase_6_web` and open `http://127.0.0.1:8001/`. `ModuleNotFoundError: phase_6_web` means you are not in the repo root on `PYTHONPATH` (use `cd` to the project root first).
 
+## Phase 7 — Streamlit Deployment
+
+### Local Streamlit run
+
+1. Install dependencies: `pip install -r requirements.txt`
+2. Start app: `streamlit run streamlit_app.py`
+3. Open the URL shown in terminal (usually `http://localhost:8501`)
+
+The Streamlit app uses `RESTAURANTS_PARQUET` if set, else `data/processed/restaurants.parquet`.  
+If that Parquet file is missing, it auto-downloads and prepares data from Hugging Face on first run.
+
+### Deploy on Streamlit Community Cloud
+
+1. Push this repository to GitHub.
+2. In Streamlit Cloud, click **New app** and select this repository/branch.
+3. Set **Main file path** to `streamlit_app.py`.
+4. In app **Secrets**, add:
+   - `GROQ_API_KEY = "your_key"` (optional but needed for LLM ranking)
+   - `BOOTSTRAP_MAX_ROWS = "60000"` (optional; lower for faster cold starts)
+5. Deploy.
+
 ## 📐 Architecture
 
 See detailed system design here: [ARCHITECTURE.md](./ARCHITECTURE.md)

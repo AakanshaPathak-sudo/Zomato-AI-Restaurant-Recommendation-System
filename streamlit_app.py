@@ -34,7 +34,6 @@ def _inject_styles() -> None:
 
 :root {
   --bg-deep: #030303;
-  --bg-card: rgba(18, 16, 14, 0.65);
   --orange: #ff7a1a;
   --orange-bright: #ffb020;
   --orange-dim: rgba(255, 120, 40, 0.35);
@@ -75,18 +74,18 @@ html, body, [data-testid="stAppViewContainer"] {
   width: 100% !important;
 }
 
-.site-header-line {
+.hero-headline {
   text-align: center;
-  font-size: clamp(1.35rem, 3.8vw, 1.95rem);
+  font-size: clamp(2rem, 5.5vw, 3.15rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
-  margin: 0.35rem auto 1.15rem;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0.35rem auto 1rem;
   padding: 0 0.75rem;
   width: 100%;
-  max-width: 960px;
+  max-width: 920px;
   box-sizing: border-box;
-  background: linear-gradient(135deg, #fff 0%, #ffb86c 45%, #ff7a1a 100%);
+  background: linear-gradient(135deg, #fff 0%, #ffb86c 42%, #ff7a1a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -123,33 +122,13 @@ html, body, [data-testid="stAppViewContainer"] {
   pointer-events: none;
 }
 .hero-sub {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--muted);
-  max-width: 520px;
+  max-width: 640px;
   width: 100%;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1.25rem;
   line-height: 1.55;
   text-align: center !important;
-}
-.hero-badges {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin: 0.5rem auto 0;
-  width: 100%;
-  max-width: 640px;
-  text-align: center;
-}
-.hero-badge {
-  font-size: 0.72rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--muted);
 }
 
 /* Section titles (use <div>, not <h2> — avoids Streamlit’s heading link icon) */
@@ -165,34 +144,6 @@ html, body, [data-testid="stAppViewContainer"] {
   color: var(--muted);
   font-size: 0.88rem;
   margin: 0 0 1.5rem 0;
-}
-
-/* Glass grid cards */
-.glass-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-@media (max-width: 700px) { .glass-grid { grid-template-columns: 1fr; } }
-.glass-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  padding: 1.25rem 1.35rem;
-  box-shadow: 0 0 32px rgba(255, 100, 0, 0.06);
-}
-.glass-card-title { margin: 0 0 0.5rem 0; font-size: 0.95rem; color: #fff; font-weight: 700; }
-.glass-card p { margin: 0; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-.glass-icon {
-  width: 40px; height: 40px; border-radius: 12px;
-  background: linear-gradient(135deg, rgba(255, 120, 40, 0.25), rgba(255, 180, 80, 0.1));
-  border: 1px solid rgba(255, 140, 60, 0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; margin-bottom: 0.75rem;
-  box-shadow: 0 0 20px rgba(255, 120, 40, 0.15);
 }
 
 .process-row {
@@ -377,46 +328,11 @@ def _landing_sections() -> None:
     st.markdown(
         """
 <div class="landing-top">
-  <p class="site-header-line">Zomato Restaurants AI Recommends!</p>
+  <p class="hero-headline">Stop Searching.<br/>Start Eating.</p>
   <div class="hero-outer">
     <div class="hero-wrap">
-      <p class="hero-sub">Real Zomato-style listings, filtered by area and budget — ranked with Groq when your API key is configured.</p>
-      <div class="hero-badges">
-        <span class="hero-badge">Bangalore localities</span>
-        <span class="hero-badge">Budget-aware</span>
-        <span class="hero-badge">LLM + fallback ranking</span>
-      </div>
+      <p class="hero-sub">Find restaurants that match your locality and pricing criteria within seconds!</p>
     </div>
-  </div>
-</div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown('<div class="sec-title">Why this guide works</div>', unsafe_allow_html=True)
-    st.markdown('<p class="sec-sub">Built for clarity, speed, and honest picks from your dataset.</p>', unsafe_allow_html=True)
-    st.markdown(
-        """
-<div class="glass-grid">
-  <div class="glass-card">
-    <div class="glass-icon">⚡</div>
-    <div class="glass-card-title">Instant shortlist</div>
-    <p>We filter thousands of rows to venues that match your area and max spend for two.</p>
-  </div>
-  <div class="glass-card">
-    <div class="glass-icon">🧠</div>
-    <div class="glass-card-title">AI-ranked results</div>
-    <p>When Groq is enabled, the model explains why each spot fits your preferences.</p>
-  </div>
-  <div class="glass-card">
-    <div class="glass-icon">🛡️</div>
-    <div class="glass-card-title">Safe fallback</div>
-    <p>No key or API hiccup? You still get a solid rating-based ordering.</p>
-  </div>
-  <div class="glass-card">
-    <div class="glass-icon">📍</div>
-    <div class="glass-card-title">Locality-first</div>
-    <p>Search uses the same city field as the dataset — pick real Bangalore areas.</p>
   </div>
 </div>
         """,

@@ -69,6 +69,7 @@ html, body, [data-testid="stAppViewContainer"] {
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  padding: clamp(1.25rem, 4vw, 2.75rem) 0 clamp(0.75rem, 2vw, 1.5rem);
 }
 [data-testid="stMarkdownContainer"]:has(.landing-top) {
   width: 100% !important;
@@ -76,14 +77,14 @@ html, body, [data-testid="stAppViewContainer"] {
 
 .hero-headline {
   text-align: center;
-  font-size: clamp(2rem, 5.5vw, 3.15rem);
+  font-size: clamp(2.4rem, 7.5vw, 4.35rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.12;
-  margin: 0.35rem auto 1rem;
-  padding: 0 0.75rem;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  margin: 0 auto clamp(0.85rem, 2.5vw, 1.35rem);
+  padding: 0 clamp(0.75rem, 3vw, 1.5rem);
   width: 100%;
-  max-width: 920px;
+  max-width: 1000px;
   box-sizing: border-box;
   background: linear-gradient(135deg, #fff 0%, #ffb86c 42%, #ff7a1a 100%);
   -webkit-background-clip: text;
@@ -104,8 +105,8 @@ html, body, [data-testid="stAppViewContainer"] {
 
 .hero-wrap {
   width: 100%;
-  max-width: 720px;
-  margin: 0 auto 2.5rem;
+  max-width: 760px;
+  margin: 0 auto 0.35rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -116,18 +117,18 @@ html, body, [data-testid="stAppViewContainer"] {
   content: "";
   display: block;
   width: 100%;
-  height: 120px;
-  margin-top: 2rem;
-  background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(255, 120, 40, 0.35) 0%, transparent 65%);
+  height: 48px;
+  margin-top: 0.65rem;
+  background: radial-gradient(ellipse 85% 100% at 50% 0%, rgba(255, 120, 40, 0.28) 0%, transparent 72%);
   pointer-events: none;
 }
 .hero-sub {
-  font-size: 1.05rem;
-  color: var(--muted);
-  max-width: 640px;
+  font-size: clamp(1.05rem, 2.4vw, 1.28rem);
+  color: #c4c4cc;
+  max-width: 700px;
   width: 100%;
-  margin: 0 auto 1.25rem;
-  line-height: 1.55;
+  margin: 0 auto 0;
+  line-height: 1.5;
   text-align: center !important;
 }
 
@@ -137,7 +138,7 @@ html, body, [data-testid="stAppViewContainer"] {
   font-weight: 700;
   color: #fff;
   text-align: center;
-  margin: 2.5rem 0 0.35rem 0;
+  margin: 0.85rem 0 0.35rem 0;
 }
 .sec-sub {
   text-align: center;

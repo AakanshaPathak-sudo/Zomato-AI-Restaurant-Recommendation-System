@@ -74,16 +74,18 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* Hero — large, bold type + warm glow (presence over palette tricks) */
 .hero-showcase {
+  container-type: size;
+  container-name: hero;
   position: relative;
   overflow: hidden;
   border-radius: clamp(20px, 4vw, 32px);
   margin: 0 auto;
   max-width: 1100px;
-  min-height: clamp(380px, 82vh, 760px);
+  min-height: clamp(420px, 85vh, 820px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(2rem, 6vw, 4rem) clamp(0.75rem, 3vw, 1.75rem);
+  padding: clamp(1.25rem, 4vw, 2.5rem) clamp(0.5rem, 2.5vw, 1.25rem);
   border: 1px solid rgba(255, 140, 60, 0.28);
   background: #050301;
   box-shadow:
@@ -132,33 +134,36 @@ html, body, [data-testid="stAppViewContainer"] {
   margin: 0 auto;
 }
 
-.hero-headline {
-  text-align: center;
-  font-size: clamp(3.5rem, min(19vw, 22vh), 11rem);
-  font-weight: 800;
-  letter-spacing: -0.055em;
-  line-height: 0.9;
-  margin: 0 auto clamp(0.85rem, 2.2vw, 1.35rem);
-  padding: 0;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
+/* Div (not p) + !important beats Streamlit markdown body styles.
+   Use max(vw,vh) so narrow phones don't get stuck on tiny vw. */
+.hero-headline,
+[data-testid="stMarkdownContainer"] .hero-headline {
+  text-align: center !important;
+  font-size: clamp(4rem, min(max(28vw, 38vh), 42vmin), 20rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.06em !important;
+  line-height: 0.84 !important;
+  margin: 0 auto clamp(0.65rem, 1.8vw, 1.1rem) !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff;
+  -webkit-text-fill-color: #ffffff !important;
   text-shadow:
     0 0 40px rgba(255, 140, 60, 0.35),
     0 0 80px rgba(255, 100, 30, 0.2),
-    0 2px 0 rgba(0, 0, 0, 0.35);
+    0 2px 0 rgba(0, 0, 0, 0.35) !important;
 }
 
 .hero-sub {
-  font-size: clamp(0.95rem, 2.4vw, 1.3rem);
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.68) !important;
-  max-width: min(36rem, 90vw);
+  font-size: clamp(0.85rem, 2vw, 1.15rem) !important;
+  font-weight: 400 !important;
+  color: rgba(255, 255, 255, 0.62) !important;
+  max-width: min(32rem, 88vw);
   width: 100%;
   margin: 0 auto;
-  line-height: 1.5;
+  line-height: 1.45 !important;
   text-align: center !important;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
@@ -369,7 +374,7 @@ def _landing_sections() -> None:
 <div class="landing-top">
   <div class="hero-showcase">
     <div class="hero-content">
-      <p class="hero-headline">Stop Searching.<br/>Start Eating.</p>
+      <div class="hero-headline">Stop Searching.<br/>Start Eating.</div>
       <p class="hero-sub">Find restaurants that match your locality and pricing criteria within seconds!</p>
     </div>
   </div>

@@ -74,18 +74,16 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* Hero — large, bold type + warm glow (presence over palette tricks) */
 .hero-showcase {
-  container-type: size;
-  container-name: hero;
   position: relative;
   overflow: hidden;
   border-radius: clamp(20px, 4vw, 32px);
   margin: 0 auto;
   max-width: 1100px;
-  min-height: clamp(420px, 85vh, 820px);
+  min-height: clamp(300px, 48vh, 520px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1.25rem, 4vw, 2.5rem) clamp(0.5rem, 2.5vw, 1.25rem);
+  padding: clamp(1.75rem, 5vw, 3rem) clamp(1rem, 3vw, 2rem);
   border: 1px solid rgba(255, 140, 60, 0.28);
   background: #050301;
   box-shadow:
@@ -134,15 +132,14 @@ html, body, [data-testid="stAppViewContainer"] {
   margin: 0 auto;
 }
 
-/* Div (not p) + !important beats Streamlit markdown body styles.
-   Use max(vw,vh) so narrow phones don't get stuck on tiny vw. */
+/* Div (not p) + !important beats Streamlit markdown body styles */
 .hero-headline,
 [data-testid="stMarkdownContainer"] .hero-headline {
   text-align: center !important;
-  font-size: clamp(4rem, min(max(28vw, 38vh), 42vmin), 20rem) !important;
+  font-size: clamp(2.35rem, 2.2rem + 4.2vw, 4rem) !important;
   font-weight: 800 !important;
-  letter-spacing: -0.06em !important;
-  line-height: 0.84 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.06 !important;
   margin: 0 auto clamp(0.65rem, 1.8vw, 1.1rem) !important;
   padding: 0 !important;
   width: 100% !important;

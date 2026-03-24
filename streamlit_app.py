@@ -62,75 +62,86 @@ html, body, [data-testid="stAppViewContainer"] {
   max-width: 1120px !important;
 }
 
-/* Nav pill */
-.velocity-nav {
+/* Top landing block (title + hero) */
+.landing-top {
+  width: 100% !important;
+  max-width: 100% !important;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 0.65rem 1.25rem;
-  margin: 0 auto 2rem;
-  max-width: 1000px;
-  background: rgba(12, 12, 12, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: 999px;
-  box-shadow: 0 0 40px rgba(255, 100, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-sizing: border-box;
 }
-.velocity-nav .logo {
+[data-testid="stMarkdownContainer"]:has(.landing-top) {
+  width: 100% !important;
+}
+
+.site-header-line {
+  text-align: center;
+  font-size: clamp(1.35rem, 3.8vw, 1.95rem);
   font-weight: 800;
-  font-size: 1.05rem;
-  background: linear-gradient(135deg, #fff 0%, #ffb86c 100%);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0.35rem auto 1.15rem;
+  padding: 0 0.75rem;
+  width: 100%;
+  max-width: 960px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #fff 0%, #ffb86c 45%, #ff7a1a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.velocity-nav .links { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted); }
-.velocity-nav .links span { cursor: default; }
-.velocity-nav .cta {
-  padding: 0.4rem 1rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #ff6b00, #ffb020);
-  color: #0a0a0a !important;
-  box-shadow: 0 0 24px rgba(255, 140, 40, 0.45);
-  border: none;
+
+/* Hero — full-width wrapper so Streamlit’s markdown column doesn’t left-align children */
+.hero-outer {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 0;
 }
 
-/* Hero */
-.hero-wrap { text-align: center; margin-bottom: 2.5rem; position: relative; }
+.hero-wrap {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .hero-wrap::after {
   content: "";
   display: block;
+  width: 100%;
   height: 120px;
   margin-top: 2rem;
   background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(255, 120, 40, 0.35) 0%, transparent 65%);
   pointer-events: none;
 }
-.hero-title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: #fff;
-  margin: 0 0 0.75rem 0;
-}
 .hero-sub {
   font-size: 1rem;
   color: var(--muted);
   max-width: 520px;
+  width: 100%;
   margin: 0 auto 1.5rem;
   line-height: 1.55;
+  text-align: center !important;
 }
 .hero-badges {
   display: flex;
   justify-content: center;
+  align-items: center;
+  align-content: center;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-top: 0.5rem;
+  margin: 0.5rem auto 0;
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
 }
 .hero-badge {
   font-size: 0.72rem;
@@ -141,7 +152,7 @@ html, body, [data-testid="stAppViewContainer"] {
   color: var(--muted);
 }
 
-/* Section titles */
+/* Section titles (use <div>, not <h2> — avoids Streamlit’s heading link icon) */
 .sec-title {
   font-size: 1.35rem;
   font-weight: 700;
@@ -173,7 +184,7 @@ html, body, [data-testid="stAppViewContainer"] {
   padding: 1.25rem 1.35rem;
   box-shadow: 0 0 32px rgba(255, 100, 0, 0.06);
 }
-.glass-card h4 { margin: 0 0 0.5rem 0; font-size: 0.95rem; color: #fff; font-weight: 700; }
+.glass-card-title { margin: 0 0 0.5rem 0; font-size: 0.95rem; color: #fff; font-weight: 700; }
 .glass-card p { margin: 0; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
 .glass-icon {
   width: 40px; height: 40px; border-radius: 12px;
@@ -208,7 +219,7 @@ html, body, [data-testid="stAppViewContainer"] {
   color: var(--orange);
   margin-bottom: 0.5rem;
 }
-.process-card h4 { margin: 0 0 0.4rem 0; color: #fff; font-size: 0.95rem; }
+.process-card-title { margin: 0 0 0.4rem 0; color: #fff; font-size: 0.95rem; font-weight: 700; }
 .process-card p { margin: 0; font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
 
 /* Form glass shell */
@@ -338,8 +349,16 @@ label[data-testid="stWidgetLabel"] p {
               rgba(8, 8, 8, 0.5);
   border: 1px solid rgba(255, 140, 60, 0.2);
 }
-.footer-cta h3 { margin: 0 0 0.5rem 0; color: #fff; font-size: 1.25rem; font-weight: 800; }
+.footer-cta-heading { margin: 0 0 0.5rem 0; color: #fff; font-size: 1.25rem; font-weight: 800; }
 .footer-cta p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+/* Hide Streamlit anchor-link chips beside headings if any slip through */
+[data-testid="stMarkdownContainer"] h1 a,
+[data-testid="stMarkdownContainer"] h2 a,
+[data-testid="stMarkdownContainer"] h3 a,
+[data-testid="stMarkdownContainer"] h4 a {
+  display: none !important;
+}
 
 .footer-note {
   text-align: center;
@@ -357,51 +376,46 @@ label[data-testid="stWidgetLabel"] p {
 def _landing_sections() -> None:
     st.markdown(
         """
-<nav class="velocity-nav">
-  <span class="logo">Zomato AI</span>
-  <div class="links">
-    <span>Why AI picks</span>
-    <span>How it works</span>
-    <span>Bangalore data</span>
-  </div>
-  <span class="cta">Live recommendations</span>
-</nav>
-<div class="hero-wrap">
-  <h1 class="hero-title">Discover faster.<br/>Dine smarter.</h1>
-  <p class="hero-sub">Real Zomato-style listings, filtered by area and budget — ranked with Groq when your API key is configured.</p>
-  <div class="hero-badges">
-    <span class="hero-badge">Bangalore localities</span>
-    <span class="hero-badge">Budget-aware</span>
-    <span class="hero-badge">LLM + fallback ranking</span>
+<div class="landing-top">
+  <p class="site-header-line">Zomato Restaurants AI Recommends!</p>
+  <div class="hero-outer">
+    <div class="hero-wrap">
+      <p class="hero-sub">Real Zomato-style listings, filtered by area and budget — ranked with Groq when your API key is configured.</p>
+      <div class="hero-badges">
+        <span class="hero-badge">Bangalore localities</span>
+        <span class="hero-badge">Budget-aware</span>
+        <span class="hero-badge">LLM + fallback ranking</span>
+      </div>
+    </div>
   </div>
 </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown('<h2 class="sec-title">Why this guide works</h2>', unsafe_allow_html=True)
+    st.markdown('<div class="sec-title">Why this guide works</div>', unsafe_allow_html=True)
     st.markdown('<p class="sec-sub">Built for clarity, speed, and honest picks from your dataset.</p>', unsafe_allow_html=True)
     st.markdown(
         """
 <div class="glass-grid">
   <div class="glass-card">
     <div class="glass-icon">⚡</div>
-    <h4>Instant shortlist</h4>
+    <div class="glass-card-title">Instant shortlist</div>
     <p>We filter thousands of rows to venues that match your area and max spend for two.</p>
   </div>
   <div class="glass-card">
     <div class="glass-icon">🧠</div>
-    <h4>AI-ranked results</h4>
+    <div class="glass-card-title">AI-ranked results</div>
     <p>When Groq is enabled, the model explains why each spot fits your preferences.</p>
   </div>
   <div class="glass-card">
     <div class="glass-icon">🛡️</div>
-    <h4>Safe fallback</h4>
+    <div class="glass-card-title">Safe fallback</div>
     <p>No key or API hiccup? You still get a solid rating-based ordering.</p>
   </div>
   <div class="glass-card">
     <div class="glass-icon">📍</div>
-    <h4>Locality-first</h4>
+    <div class="glass-card-title">Locality-first</div>
     <p>Search uses the same city field as the dataset — pick real Bangalore areas.</p>
   </div>
 </div>
@@ -409,24 +423,24 @@ def _landing_sections() -> None:
         unsafe_allow_html=True,
     )
 
-    st.markdown('<h2 class="sec-title">The process — fast, clear, done</h2>', unsafe_allow_html=True)
+    st.markdown('<div class="sec-title">The process — fast, clear, done</div>', unsafe_allow_html=True)
     st.markdown('<p class="sec-sub">Three steps from idea to table.</p>', unsafe_allow_html=True)
     st.markdown(
         """
 <div class="process-row">
   <div class="process-card">
     <span class="step">01</span>
-    <h4>Share your vibe</h4>
+    <div class="process-card-title">Share your vibe</div>
     <p>Choose locality, price tier, and optional preferences like cuisine or diet.</p>
   </div>
   <div class="process-card">
     <span class="step">02</span>
-    <h4>We rank it</h4>
+    <div class="process-card-title">We rank it</div>
     <p>The pipeline loads candidates and runs LLM or deterministic ranking.</p>
   </div>
   <div class="process-card">
     <span class="step">03</span>
-    <h4>Pick &amp; go</h4>
+    <div class="process-card-title">Pick &amp; go</div>
     <p>Scan glowing cards with ratings, cost, and “why this place” copy.</p>
   </div>
 </div>
@@ -436,7 +450,7 @@ def _landing_sections() -> None:
 
 
 def _faq_section() -> None:
-    st.markdown('<h2 class="sec-title">Questions</h2>', unsafe_allow_html=True)
+    st.markdown('<div class="sec-title">Questions</div>', unsafe_allow_html=True)
     st.markdown('<p class="sec-sub">Quick answers before you search.</p>', unsafe_allow_html=True)
     with st.expander("Which cities work?"):
         st.write(
@@ -464,7 +478,7 @@ def _footer_sections() -> None:
     st.markdown(
         """
 <div class="footer-cta">
-  <h3>Ready when you are</h3>
+  <div class="footer-cta-heading">Ready when you are</div>
   <p>Scroll up, set your budget, and hit Get Recommendations.</p>
 </div>
 <p class="footer-note">Zomato AI · Streamlit · Groq-ready pipeline</p>

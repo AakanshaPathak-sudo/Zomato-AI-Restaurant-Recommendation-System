@@ -2,6 +2,10 @@
 
 AI-powered restaurant recommendation system that uses user inputs (city, budget, preferences) to generate personalized dining suggestions using real Zomato data and LLM-based reasoning.
 
+## Live Demo
+
+Streamlit deployment (Phase 7): [https://zomato-ai-restaurant-recommendation-system-2fogeucvt4vnqcwkh2p.streamlit.app/](https://zomato-ai-restaurant-recommendation-system-2fogeucvt4vnqcwkh2p.streamlit.app/)
+
 **Scope:** The bundled dataset maps “city” to Zomato **localities within Bangalore** (e.g. Banashankari, Bellandur)—not other metros—so searches should use those area names.
 
 ## Web UI

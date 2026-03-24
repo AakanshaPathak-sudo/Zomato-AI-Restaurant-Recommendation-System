@@ -79,11 +79,11 @@ html, body, [data-testid="stAppViewContainer"] {
   border-radius: clamp(20px, 4vw, 32px);
   margin: 0 auto;
   max-width: 1100px;
-  min-height: clamp(420px, 78vh, 720px);
+  min-height: clamp(380px, 82vh, 760px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(3rem, 10vw, 6rem) clamp(1rem, 4vw, 2.25rem);
+  padding: clamp(2rem, 6vw, 4rem) clamp(0.75rem, 3vw, 1.75rem);
   border: 1px solid rgba(255, 140, 60, 0.28);
   background: #050301;
   box-shadow:
@@ -128,18 +128,18 @@ html, body, [data-testid="stAppViewContainer"] {
   justify-content: center;
   text-align: center;
   width: 100%;
-  max-width: min(100%, 980px);
+  max-width: 100%;
   margin: 0 auto;
 }
 
 .hero-headline {
   text-align: center;
-  font-size: clamp(3.1rem, 11.5vw, 6.25rem);
+  font-size: clamp(3.5rem, min(19vw, 22vh), 11rem);
   font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 0.98;
-  margin: 0 auto clamp(1.25rem, 3.5vw, 2rem);
-  padding: 0 clamp(0.25rem, 1.5vw, 0.75rem);
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  margin: 0 auto clamp(0.85rem, 2.2vw, 1.35rem);
+  padding: 0;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -152,52 +152,15 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 .hero-sub {
-  font-size: clamp(1.2rem, 3.2vw, 1.65rem);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.82) !important;
-  max-width: min(42rem, 92vw);
+  font-size: clamp(0.95rem, 2.4vw, 1.3rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.68) !important;
+  max-width: min(36rem, 90vw);
   width: 100%;
   margin: 0 auto;
-  line-height: 1.45;
+  line-height: 1.5;
   text-align: center !important;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-}
-
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  margin-top: clamp(1.75rem, 5vw, 2.75rem);
-  padding: 1rem 2rem;
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  font-weight: 700;
-  border-radius: 999px;
-  text-decoration: none !important;
-  color: #0c0806 !important;
-  background: linear-gradient(135deg, #ff6b00 0%, #ffb020 100%);
-  box-shadow:
-    0 0 0 1px rgba(255, 220, 160, 0.25) inset,
-    0 8px 36px rgba(255, 120, 30, 0.55),
-    0 0 48px rgba(255, 140, 40, 0.25);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.hero-cta:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 0 0 1px rgba(255, 220, 160, 0.35) inset,
-    0 12px 44px rgba(255, 120, 30, 0.65);
-}
-.hero-cta-arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
-  font-size: 1rem;
-  line-height: 1;
 }
 
 .try-form-anchor {
@@ -408,7 +371,6 @@ def _landing_sections() -> None:
     <div class="hero-content">
       <p class="hero-headline">Stop Searching.<br/>Start Eating.</p>
       <p class="hero-sub">Find restaurants that match your locality and pricing criteria within seconds!</p>
-      <a class="hero-cta" href="#try-form">Get recommendations<span class="hero-cta-arrow">→</span></a>
     </div>
   </div>
 </div>

@@ -61,75 +61,168 @@ html, body, [data-testid="stAppViewContainer"] {
   max-width: 1120px !important;
 }
 
-/* Top landing block (title + hero) */
+/* Top landing block */
 .landing-top {
   width: 100% !important;
   max-width: 100% !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   box-sizing: border-box;
-  padding: clamp(1.25rem, 4vw, 2.75rem) 0 clamp(0.75rem, 2vw, 1.5rem);
+  padding: clamp(0.5rem, 2vw, 1rem) 0 clamp(0.5rem, 1.5vw, 1rem);
 }
 [data-testid="stMarkdownContainer"]:has(.landing-top) {
   width: 100% !important;
 }
 
-.hero-headline {
-  text-align: center;
-  font-size: clamp(2.4rem, 7.5vw, 4.35rem);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.08;
-  margin: 0 auto clamp(0.85rem, 2.5vw, 1.35rem);
-  padding: 0 clamp(0.75rem, 3vw, 1.5rem);
-  width: 100%;
-  max-width: 1000px;
-  box-sizing: border-box;
-  background: linear-gradient(135deg, #fff 0%, #ffb86c 42%, #ff7a1a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Hero — full-width wrapper so Streamlit’s markdown column doesn’t left-align children */
-.hero-outer {
-  width: 100% !important;
-  max-width: 100% !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  margin-bottom: 0;
-}
-
-.hero-wrap {
-  width: 100%;
-  max-width: 760px;
-  margin: 0 auto 0.35rem;
+/* Hero showcase — high-impact glow + typography (crypto-style reference) */
+.hero-showcase {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  overflow: hidden;
+  border-radius: clamp(20px, 4vw, 32px);
+  margin: 0 auto;
+  max-width: 1100px;
+  padding: clamp(2.25rem, 6vw, 4.25rem) clamp(1.25rem, 4vw, 2.5rem);
+  border: 1px solid rgba(255, 140, 60, 0.28);
+  box-shadow:
+    0 0 0 1px rgba(255, 200, 120, 0.06) inset,
+    0 24px 80px rgba(0, 0, 0, 0.55),
+    0 0 100px rgba(255, 100, 30, 0.12);
+  background: #050301;
 }
-.hero-wrap::after {
+
+.hero-showcase::before {
   content: "";
-  display: block;
-  width: 100%;
-  height: 48px;
-  margin-top: 0.65rem;
-  background: radial-gradient(ellipse 85% 100% at 50% 0%, rgba(255, 120, 40, 0.28) 0%, transparent 72%);
+  position: absolute;
+  inset: -35%;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 25% 45%, rgba(255, 95, 20, 0.45) 0%, transparent 58%),
+    radial-gradient(ellipse 50% 40% at 78% 55%, rgba(255, 170, 60, 0.28) 0%, transparent 52%),
+    radial-gradient(ellipse 40% 35% at 50% 100%, rgba(255, 120, 40, 0.2) 0%, transparent 55%);
+  animation: hero-aurora 14s ease-in-out infinite alternate;
   pointer-events: none;
 }
+
+.hero-showcase::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 50%, transparent 30%, rgba(5, 3, 1, 0.88) 78%);
+  pointer-events: none;
+}
+
+@keyframes hero-aurora {
+  0% { transform: translate(-2%, -1%) scale(1) rotate(0deg); opacity: 0.85; }
+  100% { transform: translate(2%, 2%) scale(1.08) rotate(4deg); opacity: 1; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-float {
+  position: absolute;
+  z-index: 3;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  background: rgba(12, 10, 8, 0.82);
+  border: 1px solid rgba(255, 160, 80, 0.35);
+  color: rgba(255, 248, 240, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 20px rgba(255, 120, 40, 0.12);
+  white-space: nowrap;
+}
+.hero-float-tl { top: 6%; left: 3%; }
+.hero-float-tr { top: 10%; right: 3%; }
+.hero-float-bl { bottom: 14%; left: 4%; }
+.hero-float-br { bottom: 18%; right: 4%; }
+@media (max-width: 720px) {
+  .hero-float { display: none; }
+}
+
+.hero-headline {
+  text-align: center;
+  font-size: clamp(2.85rem, 10vw, 5.25rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  margin: 0 auto clamp(1rem, 3vw, 1.5rem);
+  padding: 0 clamp(0.5rem, 2vw, 1rem);
+  width: 100%;
+  box-sizing: border-box;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff;
+  text-shadow:
+    0 0 40px rgba(255, 140, 60, 0.35),
+    0 0 80px rgba(255, 100, 30, 0.2),
+    0 2px 0 rgba(0, 0, 0, 0.35);
+}
+
 .hero-sub {
-  font-size: clamp(1.05rem, 2.4vw, 1.28rem);
-  color: #c4c4cc;
-  max-width: 700px;
+  font-size: clamp(1.08rem, 2.6vw, 1.4rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78) !important;
+  max-width: 640px;
   width: 100%;
   margin: 0 auto 0;
   line-height: 1.5;
   text-align: center !important;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: clamp(1.35rem, 4vw, 2rem);
+  padding: 0.9rem 1.85rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 999px;
+  text-decoration: none !important;
+  color: #0c0806 !important;
+  background: linear-gradient(135deg, #ff6b00 0%, #ffb020 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 220, 160, 0.25) inset,
+    0 8px 36px rgba(255, 120, 30, 0.55),
+    0 0 48px rgba(255, 140, 40, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(255, 220, 160, 0.35) inset,
+    0 12px 44px rgba(255, 120, 30, 0.65);
+}
+.hero-cta-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.try-form-anchor {
+  scroll-margin-top: 5rem;
+  height: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* Section titles (use <div>, not <h2> — avoids Streamlit’s heading link icon) */
@@ -329,10 +422,15 @@ def _landing_sections() -> None:
     st.markdown(
         """
 <div class="landing-top">
-  <p class="hero-headline">Stop Searching.<br/>Start Eating.</p>
-  <div class="hero-outer">
-    <div class="hero-wrap">
+  <div class="hero-showcase">
+    <span class="hero-float hero-float-tl" aria-hidden="true">Koramangala</span>
+    <span class="hero-float hero-float-tr" aria-hidden="true">Budget-smart</span>
+    <span class="hero-float hero-float-bl" aria-hidden="true">AI-ranked picks</span>
+    <span class="hero-float hero-float-br" aria-hidden="true">Bangalore data</span>
+    <div class="hero-content">
+      <p class="hero-headline">Stop Searching.<br/>Start Eating.</p>
       <p class="hero-sub">Find restaurants that match your locality and pricing criteria within seconds!</p>
+      <a class="hero-cta" href="#try-form">Get recommendations<span class="hero-cta-arrow">→</span></a>
     </div>
   </div>
 </div>
@@ -493,6 +591,7 @@ def _render() -> None:
             st.error(f"Could not prepare dataset: {e}")
             st.stop()
 
+    st.markdown('<div id="try-form" class="try-form-anchor"></div>', unsafe_allow_html=True)
     st.markdown('<p class="try-title">Try it now</p>', unsafe_allow_html=True)
     st.markdown('<p class="try-sub">Pick a locality, budget tier, and optional preferences.</p>', unsafe_allow_html=True)
 

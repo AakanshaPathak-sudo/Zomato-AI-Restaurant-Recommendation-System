@@ -66,26 +66,30 @@ html, body, [data-testid="stAppViewContainer"] {
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box;
-  padding: clamp(0.5rem, 2vw, 1rem) 0 clamp(0.5rem, 1.5vw, 1rem);
+  padding: clamp(0.75rem, 3vw, 1.5rem) 0 clamp(1rem, 2.5vw, 1.75rem);
 }
 [data-testid="stMarkdownContainer"]:has(.landing-top) {
   width: 100% !important;
 }
 
-/* Hero showcase — high-impact glow + typography (crypto-style reference) */
+/* Hero — large, bold type + warm glow (presence over palette tricks) */
 .hero-showcase {
   position: relative;
   overflow: hidden;
   border-radius: clamp(20px, 4vw, 32px);
   margin: 0 auto;
   max-width: 1100px;
-  padding: clamp(2.25rem, 6vw, 4.25rem) clamp(1.25rem, 4vw, 2.5rem);
+  min-height: clamp(420px, 78vh, 720px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3rem, 10vw, 6rem) clamp(1rem, 4vw, 2.25rem);
   border: 1px solid rgba(255, 140, 60, 0.28);
+  background: #050301;
   box-shadow:
     0 0 0 1px rgba(255, 200, 120, 0.06) inset,
     0 24px 80px rgba(0, 0, 0, 0.55),
     0 0 100px rgba(255, 100, 30, 0.12);
-  background: #050301;
 }
 
 .hero-showcase::before {
@@ -93,22 +97,21 @@ html, body, [data-testid="stAppViewContainer"] {
   position: absolute;
   inset: -35%;
   z-index: 0;
+  pointer-events: none;
   background:
     radial-gradient(ellipse 55% 45% at 25% 45%, rgba(255, 95, 20, 0.45) 0%, transparent 58%),
     radial-gradient(ellipse 50% 40% at 78% 55%, rgba(255, 170, 60, 0.28) 0%, transparent 52%),
     radial-gradient(ellipse 40% 35% at 50% 100%, rgba(255, 120, 40, 0.2) 0%, transparent 55%);
   animation: hero-aurora 14s ease-in-out infinite alternate;
-  pointer-events: none;
 }
 
 .hero-showcase::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 55% at 50% 50%, transparent 30%, rgba(5, 3, 1, 0.88) 78%);
+  z-index: 1;
   pointer-events: none;
+  background: radial-gradient(ellipse 80% 55% at 50% 50%, transparent 30%, rgba(5, 3, 1, 0.88) 78%);
 }
 
 @keyframes hero-aurora {
@@ -122,44 +125,23 @@ html, body, [data-testid="stAppViewContainer"] {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  max-width: 900px;
+  width: 100%;
+  max-width: min(100%, 980px);
   margin: 0 auto;
-}
-
-.hero-float {
-  position: absolute;
-  z-index: 3;
-  padding: 0.45rem 0.9rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  border-radius: 999px;
-  background: rgba(12, 10, 8, 0.82);
-  border: 1px solid rgba(255, 160, 80, 0.35);
-  color: rgba(255, 248, 240, 0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 20px rgba(255, 120, 40, 0.12);
-  white-space: nowrap;
-}
-.hero-float-tl { top: 6%; left: 3%; }
-.hero-float-tr { top: 10%; right: 3%; }
-.hero-float-bl { bottom: 14%; left: 4%; }
-.hero-float-br { bottom: 18%; right: 4%; }
-@media (max-width: 720px) {
-  .hero-float { display: none; }
 }
 
 .hero-headline {
   text-align: center;
-  font-size: clamp(2.85rem, 10vw, 5.25rem);
+  font-size: clamp(3.1rem, 11.5vw, 6.25rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.02;
-  margin: 0 auto clamp(1rem, 3vw, 1.5rem);
-  padding: 0 clamp(0.5rem, 2vw, 1rem);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  margin: 0 auto clamp(1.25rem, 3.5vw, 2rem);
+  padding: 0 clamp(0.25rem, 1.5vw, 0.75rem);
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff;
@@ -170,13 +152,13 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 .hero-sub {
-  font-size: clamp(1.08rem, 2.6vw, 1.4rem);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.78) !important;
-  max-width: 640px;
+  font-size: clamp(1.2rem, 3.2vw, 1.65rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82) !important;
+  max-width: min(42rem, 92vw);
   width: 100%;
-  margin: 0 auto 0;
-  line-height: 1.5;
+  margin: 0 auto;
+  line-height: 1.45;
   text-align: center !important;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
@@ -186,9 +168,9 @@ html, body, [data-testid="stAppViewContainer"] {
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  margin-top: clamp(1.35rem, 4vw, 2rem);
-  padding: 0.9rem 1.85rem;
-  font-size: 1rem;
+  margin-top: clamp(1.75rem, 5vw, 2.75rem);
+  padding: 1rem 2rem;
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
   font-weight: 700;
   border-radius: 999px;
   text-decoration: none !important;
@@ -210,11 +192,11 @@ html, body, [data-testid="stAppViewContainer"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.65rem;
-  height: 1.65rem;
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.2);
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -423,10 +405,6 @@ def _landing_sections() -> None:
         """
 <div class="landing-top">
   <div class="hero-showcase">
-    <span class="hero-float hero-float-tl" aria-hidden="true">Koramangala</span>
-    <span class="hero-float hero-float-tr" aria-hidden="true">Budget-smart</span>
-    <span class="hero-float hero-float-bl" aria-hidden="true">AI-ranked picks</span>
-    <span class="hero-float hero-float-br" aria-hidden="true">Bangalore data</span>
     <div class="hero-content">
       <p class="hero-headline">Stop Searching.<br/>Start Eating.</p>
       <p class="hero-sub">Find restaurants that match your locality and pricing criteria within seconds!</p>

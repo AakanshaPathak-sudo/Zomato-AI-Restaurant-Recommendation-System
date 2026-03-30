@@ -614,11 +614,17 @@ def _render() -> None:
 
 
 def _hydrate_env_from_streamlit_secrets() -> None:
+    try:
+        secrets = st.secrets
+    except Exception:
+        # Allow app startup even when no secrets file is configured.
+        secrets = {}
+
     for key in ("GROQ_API_KEY", "GROQ_MODEL", "RESTAURANTS_PARQUET", "BOOTSTRAP_MAX_ROWS"):
         if os.environ.get(key):
             continue
-        if key in st.secrets:
-            os.environ[key] = str(st.secrets[key])
+        if key in secrets:
+            os.environ[key] = str(secrets[key])
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ from phase_3_integrate import load_processed_parquet
 from phase_6_web.structured_pipeline import run_pipeline_structured
 
 DEFAULT_PARQUET = "data/processed/restaurants.parquet"
-DEFAULT_BOOTSTRAP_ROWS = 60000
+DEFAULT_BOOTSTRAP_ROWS = 20000
 
 PRICE_TIERS: list[tuple[str, int]] = [
     ("Budget — Under ₹300", 300),
@@ -525,13 +525,17 @@ def _render() -> None:
     _landing_sections()
 
     pq = _parquet_path()
+    ready_path: Optional[str] = None
+    localities: list[str] = []
+    data_ready_error: Optional[str] = None
     with st.spinner("Loading restaurant dataset..."):
         try:
             ready_path = _ensure_parquet(str(pq))
             localities = _localities_from_parquet(ready_path)
         except Exception as e:  # pragma: no cover
-            st.error(f"Could not prepare dataset: {e}")
-            st.stop()
+            # Keep app process alive for health checks; show actionable UI instead.
+            data_ready_error = str(e)
+            st.warning("Dataset could not be prepared right now. You can still try again after reboot.")
 
     st.markdown('<div id="try-form" class="try-form-anchor"></div>', unsafe_allow_html=True)
     st.markdown('<p class="try-title">Try it now</p>', unsafe_allow_html=True)
@@ -540,7 +544,10 @@ def _render() -> None:
     with st.form("reco_form"):
         c1, c2, c3 = st.columns(3)
         with c1:
-            city = st.selectbox("Select City", options=localities, index=0 if localities else None)
+            if localities:
+                city = st.selectbox("Select City", options=localities, index=0)
+            else:
+                city = st.text_input("Enter locality", placeholder="e.g. Koramangala")
         with c2:
             tier_labels = [t[0] for t in PRICE_TIERS]
             tier_pick = st.selectbox("Price Range", options=tier_labels, index=1)
@@ -553,6 +560,14 @@ def _render() -> None:
         submitted = st.form_submit_button("Get Recommendations")
 
     if not submitted:
+        if data_ready_error:
+            st.caption(f"Startup note: {data_ready_error}")
+        _faq_section()
+        _footer_sections()
+        return
+
+    if not ready_path:
+        st.error("Dataset is not ready yet. Reboot app, ensure HF_TOKEN is set, and try again.")
         _faq_section()
         _footer_sections()
         return
@@ -620,7 +635,7 @@ def _hydrate_env_from_streamlit_secrets() -> None:
         # Allow app startup even when no secrets file is configured.
         secrets = {}
 
-    for key in ("GROQ_API_KEY", "GROQ_MODEL", "RESTAURANTS_PARQUET", "BOOTSTRAP_MAX_ROWS"):
+    for key in ("GROQ_API_KEY", "GROQ_MODEL", "RESTAURANTS_PARQUET", "BOOTSTRAP_MAX_ROWS", "HF_TOKEN"):
         if os.environ.get(key):
             continue
         if key in secrets:
